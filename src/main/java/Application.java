@@ -1,5 +1,6 @@
 import HashSet.StringHashSet;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,6 +17,13 @@ public class Application {
         set.add("Jakub");
         set.add("Marek");
         set.add("Marek");
+        System.out.println(set);
+        set.addAll(Arrays.asList("Kuba","Marysia", "Michał","Marcin", "Michał", "Wojtek","Bartek","Adam"));
+
+        System.out.println(set.contains("Ala"));
+        System.out.println(set);
+
+        set.remove("Kuba");
 
         System.out.println(set);
 

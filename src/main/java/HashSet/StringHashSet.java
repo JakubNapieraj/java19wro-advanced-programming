@@ -25,6 +25,8 @@ public class StringHashSet implements Set<String> {
 
     @Override
     public boolean removeIf(Predicate<? super String> filter) {
+
+
         return false;
     }
 
@@ -35,16 +37,30 @@ public class StringHashSet implements Set<String> {
 
     @Override
     public int size() {
-        return 0;
+        int index1 =0;
+        for (int i = 0; i <buckets.size() ; i++) {
+           index1++;
+        }
+        return index1 ;
     }
 
     @Override
     public boolean isEmpty() {
+        for (int i = 0; i <buckets.size() ; i++) {
+            if(buckets.get(i).isEmpty()){
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean contains(Object o) {
+
+        int index = o.hashCode()%this.buckets.size();
+        if(buckets.get(index).contains(o)){
+            return true;
+        }
         return false;
     }
 
@@ -66,7 +82,7 @@ public class StringHashSet implements Set<String> {
     @Override
     public boolean add(String s) {
         int hash = s.hashCode();
-        int index = hash % this.buckets.size();
+        int index = Math.abs(hash % this.buckets.size()) ;
         List<String> bucket = this.buckets.get(index);
         if (bucket.contains(s)) {
             return false;
@@ -77,6 +93,11 @@ public class StringHashSet implements Set<String> {
 
     @Override
     public boolean remove(Object o) {
+        int index = Math.abs(o.hashCode()%this.buckets.size());
+        if(buckets.get(index).contains(o)){
+            buckets.get(index).remove(o);
+            return true;
+        }
         return false;
     }
 
@@ -87,7 +108,17 @@ public class StringHashSet implements Set<String> {
 
     @Override
     public boolean addAll(Collection<? extends String> c) {
-        return false;
+        boolean changed = false;
+        for (String s : c) {
+            int hash = s.hashCode();
+            int index = Math.abs(hash % this.buckets.size());
+            List<String> bucket = this.buckets.get(index);
+            if (!bucket.contains(s)) {
+                this.add(s);
+                changed = true;
+            }
+        }
+        return changed;
     }
 
     @Override
@@ -102,7 +133,11 @@ public class StringHashSet implements Set<String> {
 
     @Override
     public void clear() {
-
+        for (int i = 0; i <buckets.size() ; i++) {
+            for (int j = 0; j <buckets.get(i).size() ; j++) {
+                buckets.get(i).clear();
+            }
+        }
     }
 
     @Override
