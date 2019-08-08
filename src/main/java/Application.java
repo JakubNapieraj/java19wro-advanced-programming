@@ -1,8 +1,6 @@
 import HashSet.StringHashSet;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -11,6 +9,19 @@ import static java.util.stream.Collectors.toSet;
 public class Application {
 
     public static void main(String[] args) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("Jan ", "Kowalski");
+
+        System.out.println(map.entrySet());
+        System.out.println(map.keySet());
+        System.out.println(map.entrySet());
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            entry.hashCode();
+        }
+
+
+
         Set<String> set = new StringHashSet();
         set.add("Ala");
         set.add("Alan");
@@ -20,10 +31,6 @@ public class Application {
         System.out.println(set);
         set.addAll(Arrays.asList("Kuba","Marysia", "Michał","Marcin", "Michał", "Wojtek","Bartek","Adam"));
 
-        System.out.println(set.contains("Ala"));
-        System.out.println(set);
-
-        set.remove("Kuba");
 
         System.out.println(set);
 
